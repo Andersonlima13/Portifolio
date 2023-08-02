@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect , request , flash
 from flask_mail import Mail, Message
-from config import email,senha
+from dotenv import load_dotenv
+import os 
+load_dotenv()
+
 
 
 app = Flask(__name__)
@@ -11,8 +14,8 @@ mail_settings = {
     "MAIL_PORT": 465,
     "MAIL_USE_TLS": False,
     "MAIL_USE_SSL": True,
-    "MAIL_USERNAME": email,
-    "MAIL_PASSWORD" : senha
+    "MAIL_USERNAME": os.getenv("EMAIL"),
+    "MAIL_PASSWORD" : os.getenv("SENHA")
     
 }
 
@@ -21,8 +24,8 @@ mail = Mail(app)
 
 class Contato:
     def __init__(self,nome,email,mensagem):
-        self.nome = nome,
-        self.email = email,
+        self.nome = nome
+        self.email = email
         self.mensagem = mensagem
 
 
